@@ -70,7 +70,7 @@ For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Doc
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/starkescrow.git
+git clone https://github.com/mariano-aguero/starkescrow.git
 cd starkescrow
 
 # Install dependencies

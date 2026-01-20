@@ -1,5 +1,12 @@
 {
   "name": "starkescrow",
+  "version": "1.0.0",
+  "description": "P2P Escrow on Starknet",
+  "author": "mariano-aguero",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mariano-aguero/starkescrow.git"
+  },
   "private": true,
   "scripts": {
     "dev": "pnpm --filter frontend dev",
