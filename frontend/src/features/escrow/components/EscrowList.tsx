@@ -36,6 +36,10 @@ export function EscrowList() {
     refetch: refetchArbiter,
   } = useArbiterEscrows(address || "")
 
+  console.log("buyers", buyerIds)
+  console.log("sellers", sellerIds)
+  console.log("arbiters", arbiterIds)
+
   const handleRefreshList = () => {
     refetchBuyer()
     refetchSeller()

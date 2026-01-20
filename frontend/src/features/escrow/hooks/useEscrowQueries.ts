@@ -8,6 +8,7 @@ import {
   ESCROW_CONTRACT_ADDRESS,
   EscrowStatus,
 } from "@/lib/constants"
+import { parseEscrowId } from "@/lib/utils"
 import { EscrowData } from "../types"
 
 export function useEscrowStats() {
@@ -193,37 +194,33 @@ export function useEscrowCount() {
   }
 }
 
-export function useBuyerEscrows(address: string) {
+export function useEscrowsByRole(
+  address: string,
+  functionName:
+    | "get_buyer_escrows"
+    | "get_seller_escrows"
+    | "get_arbiter_escrows"
+) {
   // Normalize address to ensure proper format (checksum, padding)
   const normalizedAddress = address ? validateAndParseAddress(address) : ""
 
   const { data, isLoading, error, refetch, isPending } = useReadContract({
     abi: ESCROW_ABI,
     address: ESCROW_CONTRACT_ADDRESS as `0x${string}`,
-    functionName: "get_buyer_escrows",
+    functionName,
     args: [normalizedAddress],
     watch: true,
     enabled: !!normalizedAddress,
   })
 
   // Handle both array and single bigint responses
-  let escrowIds: number[] = []
-
-  if (Array.isArray(data)) {
-    escrowIds = (data as any[]).map((id) => Number(id))
-  } else if (
-    typeof data === "bigint" ||
-    typeof data === "number" ||
-    typeof data === "string"
-  ) {
-    escrowIds = [Number(data)]
-  } else if (data !== undefined && data !== null) {
-    // Try to convert any other type to number
-    const num = Number(data)
-    if (!isNaN(num)) {
-      escrowIds = [num]
+  const escrowIds: number[] = useMemo(() => {
+    if (Array.isArray(data)) {
+      return data.map(parseEscrowId).filter((id) => id > 0)
     }
-  }
+    const singleId = parseEscrowId(data)
+    return singleId > 0 ? [singleId] : []
+  }, [data])
 
   return {
     data: escrowIds,
@@ -231,82 +228,16 @@ export function useBuyerEscrows(address: string) {
     error,
     refetch,
   }
+}
+
+export function useBuyerEscrows(address: string) {
+  return useEscrowsByRole(address, "get_buyer_escrows")
 }
 
 export function useSellerEscrows(address: string) {
-  // Normalize address to ensure proper format (checksum, padding)
-  const normalizedAddress = address ? validateAndParseAddress(address) : ""
-
-  const { data, isLoading, error, refetch, isPending } = useReadContract({
-    abi: ESCROW_ABI,
-    address: ESCROW_CONTRACT_ADDRESS as `0x${string}`,
-    functionName: "get_seller_escrows",
-    args: [normalizedAddress],
-    watch: true,
-    enabled: !!normalizedAddress,
-  })
-
-  // Handle both array and single bigint responses
-  let escrowIds: number[] = []
-  if (Array.isArray(data)) {
-    escrowIds = (data as any[]).map((id) => Number(id))
-  } else if (
-    typeof data === "bigint" ||
-    typeof data === "number" ||
-    typeof data === "string"
-  ) {
-    escrowIds = [Number(data)]
-  } else if (data !== undefined && data !== null) {
-    // Try to convert any other type to number
-    const num = Number(data)
-    if (!isNaN(num)) {
-      escrowIds = [num]
-    }
-  }
-
-  return {
-    data: escrowIds,
-    isLoading: isLoading || isPending,
-    error,
-    refetch,
-  }
+  return useEscrowsByRole(address, "get_seller_escrows")
 }
 
 export function useArbiterEscrows(address: string) {
-  // Normalize address to ensure proper format (checksum, padding)
-  const normalizedAddress = address ? validateAndParseAddress(address) : ""
-
-  const { data, isLoading, error, refetch, isPending } = useReadContract({
-    abi: ESCROW_ABI,
-    address: ESCROW_CONTRACT_ADDRESS as `0x${string}`,
-    functionName: "get_arbiter_escrows",
-    args: [normalizedAddress],
-    watch: true,
-    enabled: !!normalizedAddress,
-  })
-
-  // Handle both array and single bigint responses
-  let escrowIds: number[] = []
-  if (Array.isArray(data)) {
-    escrowIds = (data as any[]).map((id) => Number(id))
-  } else if (
-    typeof data === "bigint" ||
-    typeof data === "number" ||
-    typeof data === "string"
-  ) {
-    escrowIds = [Number(data)]
-  } else if (data !== undefined && data !== null) {
-    // Try to convert any other type to number
-    const num = Number(data)
-    if (!isNaN(num)) {
-      escrowIds = [num]
-    }
-  }
-
-  return {
-    data: escrowIds,
-    isLoading: isLoading || isPending,
-    error,
-    refetch,
-  }
+  return useEscrowsByRole(address, "get_arbiter_escrows")
 }
