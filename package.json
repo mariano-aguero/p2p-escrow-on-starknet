@@ -13,6 +13,7 @@
     "build": "pnpm --filter frontend build",
     "contracts:build": "cd contracts && scarb build",
     "contracts:test": "cd contracts && snforge test",
+    "contracts:format:check": "cd contracts && scarb fmt --check",
     "contracts:deploy": "./contracts/scripts/deploy.sh",
     "contracts:verify": "./contracts/scripts/verify.sh",
     "format": "prettier --write .",

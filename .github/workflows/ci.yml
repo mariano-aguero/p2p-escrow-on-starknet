@@ -19,12 +19,20 @@ jobs:
           scarb-version: "2.8.4"
 
       - name: Setup Starknet Foundry
-        uses: software-mansion/setup-snforge@v0
+        uses: software-mansion/setup-snforge@v1
         with:
           snforge-version: "0.55.0"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Build Contracts
         run: pnpm contracts:build
+
+      - name: Check Contracts Format
+        run: pnpm contracts:format:check
 
       - name: Run Tests
         run: pnpm contracts:test
