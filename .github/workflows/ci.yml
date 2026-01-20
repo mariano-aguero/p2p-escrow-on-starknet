@@ -32,16 +32,19 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build Contracts
-        run: pnpm contracts:build
+        working-directory: contracts
+        run: scarb build
 
       - name: Check Contracts Format
-        run: pnpm contracts:format:check
+        working-directory: contracts
+        run: scarb fmt --check
 
       - name: Run Tests
-        run: pnpm contracts:test
+        working-directory: contracts
+        run: snforge test
 
   frontend:
     name: Frontend CI
@@ -61,10 +64,12 @@ jobs:
           cache: "pnpm"
 
       - name: Install Dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Check Formatting
-        run: pnpm format
+        working-directory: frontend
+        run: npx prettier --check .
 
       - name: Build Frontend
-        run: pnpm --filter frontend build
+        working-directory: frontend
+        run: pnpm build
