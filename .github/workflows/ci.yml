@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  contracts:
+    name: Contracts CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Scarb
+        uses: software-mansion/setup-scarb@v1
+        with:
+          scarb-version: "2.8.4"
+
+      - name: Setup Starknet Foundry
+        uses: software-mansion/setup-snforge@v0
+        with:
+          snforge-version: "0.55.0"
+
+      - name: Build Contracts
+        run: pnpm contracts:build
+
+      - name: Run Tests
+        run: pnpm contracts:test
+
+  frontend:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install
+
+      - name: Check Formatting
+        run: pnpm exec prettier --check .
+
+      - name: Lint Frontend
+        run: pnpm lint
+
+      - name: Build Frontend
+        run: pnpm build

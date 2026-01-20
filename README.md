@@ -120,10 +120,17 @@ The smart contract includes a comprehensive test suite covering:
 - Proper fee calculation and withdrawal.
 
 Run tests using:
-
 ```bash
 pnpm contracts:test
 ```
+
+### Continuous Integration
+
+This project uses GitHub Actions for Continuous Integration. The workflow includes:
+- **Contracts CI**: Compiles Cairo contracts with Scarb and runs tests with Starknet Foundry.
+- **Frontend CI**: Checks code formatting with Prettier, lints the code with ESLint, and ensures the Next.js application builds correctly.
+
+The CI workflow is triggered on every push and pull request to the `main` branch.
 
 ### Troubleshooting
 
