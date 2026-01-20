@@ -20,6 +20,41 @@ StarkEscrow is a decentralized peer-to-peer escrow service built on Starknet. it
 - **Frontend**: Built with Next.js 16, Tailwind CSS, and `starknet-react` for seamless wallet integration.
 - **Safety**: Implements the Check-Effects-Interactions (CEI) pattern to ensure smart contract security.
 
+## Escrow Flow
+
+The following diagram illustrates the life cycle of an escrow and the possible state transitions:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Funded: Buyer creates Escrow
+    
+    Funded --> Completed: Buyer releases funds
+    Funded --> Refunded: Seller refunds funds
+    Funded --> Disputed: Buyer or Seller initiates dispute
+    
+    Disputed --> Resolved: Arbiter resolves
+    
+    Completed --> [*]
+    Refunded --> [*]
+    Resolved --> [*]
+```
+
+For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Documentation](docs/escrow_flow.md).
+
+## Screenshots
+
+### Dashboard
+![Dashboard](docs/images/1.png)
+
+### Create Escrow
+![Create Escrow](docs/images/3.png)
+
+### Transaction Processing
+![Transaction Processing](docs/images/4.png)
+
+### Success
+![Success](docs/images/5.png)
+
 ## Getting Started
 
 ### Prerequisites

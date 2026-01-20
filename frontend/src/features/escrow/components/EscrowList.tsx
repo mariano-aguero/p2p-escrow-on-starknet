@@ -21,6 +21,12 @@ export function EscrowList() {
   const [detailOpen, setDetailOpen] = useState(false)
 
   const {
+    data: arbiterIds,
+    isLoading: loadingArbiter,
+    refetch: refetchArbiter,
+  } = useArbiterEscrows(address || "")
+
+  const {
     data: buyerIds,
     isLoading: loadingBuyer,
     refetch: refetchBuyer,
@@ -30,20 +36,13 @@ export function EscrowList() {
     isLoading: loadingSeller,
     refetch: refetchSeller,
   } = useSellerEscrows(address || "")
-  const {
-    data: arbiterIds,
-    isLoading: loadingArbiter,
-    refetch: refetchArbiter,
-  } = useArbiterEscrows(address || "")
 
-  console.log("buyers", buyerIds)
-  console.log("sellers", sellerIds)
-  console.log("arbiters", arbiterIds)
+  console.log(loadingBuyer, loadingSeller, loadingArbiter, address)
 
   const handleRefreshList = () => {
+    refetchArbiter()
     refetchBuyer()
     refetchSeller()
-    refetchArbiter()
   }
 
   // Show loading state when wallet is connecting or not connected yet
