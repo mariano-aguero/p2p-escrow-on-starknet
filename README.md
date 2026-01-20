@@ -27,13 +27,13 @@ The following diagram illustrates the life cycle of an escrow and the possible s
 ```mermaid
 stateDiagram-v2
     [*] --> Funded: Buyer creates Escrow
-    
+
     Funded --> Completed: Buyer releases funds
     Funded --> Refunded: Seller refunds funds
     Funded --> Disputed: Buyer or Seller initiates dispute
-    
+
     Disputed --> Resolved: Arbiter resolves
-    
+
     Completed --> [*]
     Refunded --> [*]
     Resolved --> [*]
@@ -44,15 +44,19 @@ For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Doc
 ## Screenshots
 
 ### Dashboard
+
 ![Dashboard](docs/images/1.png)
 
 ### Create Escrow
+
 ![Create Escrow](docs/images/3.png)
 
 ### Transaction Processing
+
 ![Transaction Processing](docs/images/4.png)
 
 ### Success
+
 ![Success](docs/images/5.png)
 
 ## Getting Started
@@ -120,6 +124,7 @@ The smart contract includes a comprehensive test suite covering:
 - Proper fee calculation and withdrawal.
 
 Run tests using:
+
 ```bash
 pnpm contracts:test
 ```
@@ -127,6 +132,7 @@ pnpm contracts:test
 ### Continuous Integration
 
 This project uses GitHub Actions for Continuous Integration. The workflow includes:
+
 - **Contracts CI**: Compiles Cairo contracts with Scarb and runs tests with Starknet Foundry.
 - **Frontend CI**: Checks code formatting with Prettier, lints the code with ESLint, and ensures the Next.js application builds correctly.
 
