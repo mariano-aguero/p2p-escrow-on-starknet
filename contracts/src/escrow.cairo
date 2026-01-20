@@ -1,16 +1,14 @@
 #[starknet::contract]
 mod escrow {
-    use starknet::{
-        ContractAddress, get_caller_address, get_block_timestamp, get_contract_address,
-        storage::{
-            Map, StorageMapReadAccess, StorageMapWriteAccess, StoragePointerReadAccess,
-            StoragePointerWriteAccess
-        }
-    };
-    use super::super::interface::{IEscrow, EscrowData, EscrowStatus};
-    use super::super::errors::Errors;
     use core::num::traits::Zero;
     use openzeppelin::token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+    use starknet::storage::{
+        Map, StorageMapReadAccess, StorageMapWriteAccess, StoragePointerReadAccess,
+        StoragePointerWriteAccess,
+    };
+    use starknet::{ContractAddress, get_block_timestamp, get_caller_address, get_contract_address};
+    use super::super::errors::Errors;
+    use super::super::interface::{EscrowData, EscrowStatus, IEscrow};
 
     #[storage]
     struct Storage {
@@ -96,7 +94,12 @@ mod escrow {
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, owner: ContractAddress, token_address: ContractAddress, fee_bps: u16) {
+    fn constructor(
+        ref self: ContractState,
+        owner: ContractAddress,
+        token_address: ContractAddress,
+        fee_bps: u16,
+    ) {
         assert(!owner.is_zero(), Errors::ZERO_ADDRESS);
         assert(!token_address.is_zero(), Errors::ZERO_ADDRESS);
         assert(fee_bps <= 1000, Errors::FEE_TOO_HIGH);
@@ -184,7 +187,10 @@ mod escrow {
             let token = IERC20Dispatcher { contract_address: self.token_address.read() };
             token.transfer(escrow.seller, amount_to_seller);
 
-            self.emit(EscrowReleased { escrow_id, seller: escrow.seller, amount: escrow.amount, fee });
+            self
+                .emit(
+                    EscrowReleased { escrow_id, seller: escrow.seller, amount: escrow.amount, fee },
+                );
         }
 
         fn refund(ref self: ContractState, escrow_id: u64) {
@@ -240,7 +246,12 @@ mod escrow {
                 // Transfer tokens to seller
                 token.transfer(escrow.seller, amount_to_seller);
 
-                self.emit(EscrowReleased { escrow_id, seller: escrow.seller, amount: escrow.amount, fee });
+                self
+                    .emit(
+                        EscrowReleased {
+                            escrow_id, seller: escrow.seller, amount: escrow.amount, fee,
+                        },
+                    );
             } else {
                 // Transfer tokens back to buyer
                 token.transfer(escrow.buyer, escrow.amount);
@@ -248,7 +259,12 @@ mod escrow {
                 self.emit(EscrowRefunded { escrow_id, buyer: escrow.buyer, amount: escrow.amount });
             }
 
-            self.emit(EscrowResolved { escrow_id, arbiter: caller, released_to_seller: release_to_seller });
+            self
+                .emit(
+                    EscrowResolved {
+                        escrow_id, arbiter: caller, released_to_seller: release_to_seller,
+                    },
+                );
         }
 
         fn get_escrow(self: @ContractState, escrow_id: u64) -> Array<felt252> {
@@ -269,8 +285,12 @@ mod escrow {
             result.append(escrow.arbiter.into()); // arbiter
 
             // Split u256 amount into low and high
-            let amount_low: felt252 = (escrow.amount & 0xffffffffffffffffffffffffffffffff).try_into().unwrap();
-            let amount_high: felt252 = (escrow.amount / 0x100000000000000000000000000000000).try_into().unwrap();
+            let amount_low: felt252 = (escrow.amount & 0xffffffffffffffffffffffffffffffff)
+                .try_into()
+                .unwrap();
+            let amount_high: felt252 = (escrow.amount / 0x100000000000000000000000000000000)
+                .try_into()
+                .unwrap();
             result.append(amount_low); // amount.low
             result.append(amount_high); // amount.high
 
@@ -304,7 +324,7 @@ mod escrow {
                 }
                 result.append(self.buyer_escrows.read((buyer, i)));
                 i += 1;
-            };
+            }
             result
         }
 
@@ -318,7 +338,7 @@ mod escrow {
                 }
                 result.append(self.seller_escrows.read((seller, i)));
                 i += 1;
-            };
+            }
             result
         }
 
@@ -332,7 +352,7 @@ mod escrow {
                 }
                 result.append(self.arbiter_escrows.read((arbiter, i)));
                 i += 1;
-            };
+            }
             result
         }
 

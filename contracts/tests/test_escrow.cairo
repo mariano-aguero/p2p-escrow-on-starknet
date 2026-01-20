@@ -1,8 +1,11 @@
-use starknet::{ContractAddress};
-use snforge_std::{declare, ContractClassTrait, DeclareResultTrait, start_cheat_caller_address, stop_cheat_caller_address};
-use starkescrow::interface::{IEscrowDispatcher, IEscrowDispatcherTrait, EscrowStatus, EscrowData};
 use openzeppelin::token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
+use snforge_std::{
+    ContractClassTrait, DeclareResultTrait, declare, start_cheat_caller_address,
+    stop_cheat_caller_address,
+};
+use starkescrow::interface::{EscrowData, EscrowStatus, IEscrowDispatcher, IEscrowDispatcherTrait};
 use starkescrow::mocks::{IPublicMintDispatcher, IPublicMintDispatcherTrait};
+use starknet::ContractAddress;
 
 // Constants for test addresses
 fn OWNER() -> ContractAddress {
@@ -71,18 +74,7 @@ fn parse_escrow_array(arr: Array<felt252>) -> Option<EscrowData> {
     let created_at: u64 = (*arr.at(8)).try_into().unwrap();
     let description = *arr.at(9);
 
-    Option::Some(
-        EscrowData {
-            id,
-            buyer,
-            seller,
-            arbiter,
-            amount,
-            status,
-            created_at,
-            description,
-        }
-    )
+    Option::Some(EscrowData { id, buyer, seller, arbiter, amount, status, created_at, description })
 }
 
 // Helper to deploy mock ERC20 token
@@ -94,7 +86,9 @@ fn deploy_erc20() -> IERC20Dispatcher {
 }
 
 // Helper to deploy the escrow contract
-fn deploy_escrow(owner: ContractAddress, token_address: ContractAddress, fee_bps: u16) -> IEscrowDispatcher {
+fn deploy_escrow(
+    owner: ContractAddress, token_address: ContractAddress, fee_bps: u16,
+) -> IEscrowDispatcher {
     let contract = declare("escrow").unwrap().contract_class();
     let mut constructor_calldata = ArrayTrait::new();
     constructor_calldata.append(owner.into());
@@ -112,7 +106,9 @@ fn setup_test() -> (IERC20Dispatcher, IEscrowDispatcher) {
 }
 
 // Helper to mint tokens to an address and approve escrow to spend them
-fn mint_and_approve(token: IERC20Dispatcher, escrow: IEscrowDispatcher, recipient: ContractAddress, amount: u256) {
+fn mint_and_approve(
+    token: IERC20Dispatcher, escrow: IEscrowDispatcher, recipient: ContractAddress, amount: u256,
+) {
     // Mint tokens using the public mint interface
     let mint_dispatcher = IPublicMintDispatcher { contract_address: token.contract_address };
     mint_dispatcher.mint(recipient, amount);
@@ -607,8 +603,12 @@ fn test_token_transfers_on_release() {
     let seller_balance_after = token.balance_of(seller);
     let escrow_balance_after = token.balance_of(escrow.contract_address);
 
-    assert(seller_balance_after == seller_balance_before + amount_to_seller, 'Seller balance wrong');
-    assert(escrow_balance_after == escrow_balance_before - amount_to_seller, 'Escrow balance wrong');
+    assert(
+        seller_balance_after == seller_balance_before + amount_to_seller, 'Seller balance wrong',
+    );
+    assert(
+        escrow_balance_after == escrow_balance_before - amount_to_seller, 'Escrow balance wrong',
+    );
 }
 
 #[test]

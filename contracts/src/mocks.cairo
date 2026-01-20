@@ -7,9 +7,12 @@ pub trait IPublicMint<TContractState> {
 
 #[starknet::contract]
 pub mod ERC20Mock {
+    use openzeppelin::token::erc20::interface::IERC20;
+    use starknet::storage::{
+        Map, StorageMapReadAccess, StorageMapWriteAccess, StoragePointerReadAccess,
+        StoragePointerWriteAccess,
+    };
     use starknet::{ContractAddress, get_caller_address};
-    use starknet::storage::{Map, StorageMapReadAccess, StorageMapWriteAccess, StoragePointerReadAccess, StoragePointerWriteAccess};
-    use openzeppelin::token::erc20::interface::{IERC20};
     use super::IPublicMint;
 
     #[storage]
@@ -34,7 +37,9 @@ pub mod ERC20Mock {
             self.balances.read(account)
         }
 
-        fn allowance(self: @ContractState, owner: ContractAddress, spender: ContractAddress) -> u256 {
+        fn allowance(
+            self: @ContractState, owner: ContractAddress, spender: ContractAddress,
+        ) -> u256 {
             self.allowances.read((owner, spender))
         }
 
@@ -50,7 +55,12 @@ pub mod ERC20Mock {
             true
         }
 
-        fn transfer_from(ref self: ContractState, sender: ContractAddress, recipient: ContractAddress, amount: u256) -> bool {
+        fn transfer_from(
+            ref self: ContractState,
+            sender: ContractAddress,
+            recipient: ContractAddress,
+            amount: u256,
+        ) -> bool {
             let caller = get_caller_address();
             let current_allowance = self.allowances.read((sender, caller));
             assert(current_allowance >= amount, 'Insufficient allowance');
