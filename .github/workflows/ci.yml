@@ -66,6 +66,10 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Install Dependencies
+        working-directory: frontend
+        run: pnpm install --no-frozen-lockfile
+
       - name: Check Formatting
         working-directory: frontend
         run: npx prettier --check .
