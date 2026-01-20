@@ -44,7 +44,7 @@ stateDiagram-v2
     Resolved --> [*]
 ```
 
-For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Documentation](docs/escrow_flow.md).
+For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Documentation](docs/ESCROW_FLOW.md).
 
 For instructions on how to deploy the frontend to Vercel, see the [Vercel Deployment Guide](docs/DEPLOYMENT_VERCEL.md).
 
