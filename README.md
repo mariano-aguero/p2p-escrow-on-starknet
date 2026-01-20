@@ -1,6 +1,12 @@
 # 🔐 StarkEscrow - P2P Escrow on Starknet
 
+[![CI](https://github.com/mariano-aguero/p2p-escrow-on-starknet/actions/workflows/ci.yml/badge.svg)](https://github.com/mariano-aguero/p2p-escrow-on-starknet/actions/workflows/ci.yml)
+[![Vercel Status](https://vercelbadge.vercel.app/api/mariano-aguero/p2p-escrow-on-starknet)](https://p2p-escrow-on-starknet.vercel.app/)
+[![Deploy with Vercel](https://vercel.com/button)](https://p2p-escrow-on-starknet.vercel.app/)
+
 ## Overview
+
+**Live Demo**: [https://p2p-escrow-on-starknet.vercel.app/](https://p2p-escrow-on-starknet.vercel.app/)
 
 StarkEscrow is a decentralized peer-to-peer escrow service built on Starknet. it allows users to safely exchange goods or services by locking funds in a smart contract until the conditions of the trade are met. It supports buyer-led releases, seller-initiated refunds, and a robust dispute resolution mechanism facilitated by a neutral third-party arbiter.
 
@@ -17,8 +23,10 @@ StarkEscrow is a decentralized peer-to-peer escrow service built on Starknet. it
 ## Architecture
 
 - **Contracts**: Written in Cairo 2.x, deployed on Starknet Sepolia Testnet.
-- **Frontend**: Built with Next.js 16, Tailwind CSS, and `starknet-react` for seamless wallet integration.
+- **Frontend**: Built with Next.js 16, React 19, Tailwind CSS, and `starknet-react` for seamless wallet integration.
+- **Data Layer**: TanStack Query for efficient data fetching and state management.
 - **Safety**: Implements the Check-Effects-Interactions (CEI) pattern to ensure smart contract security.
+- **SEO**: Fully optimized with dynamic sitemaps, metadata, and Open Graph support for social sharing.
 
 ## Escrow Flow
 
@@ -27,19 +35,18 @@ The following diagram illustrates the life cycle of an escrow and the possible s
 ```mermaid
 stateDiagram-v2
     [*] --> Funded: Buyer creates Escrow
-
     Funded --> Completed: Buyer releases funds
     Funded --> Refunded: Seller refunds funds
     Funded --> Disputed: Buyer or Seller initiates dispute
-
     Disputed --> Resolved: Arbiter resolves
-
     Completed --> [*]
     Refunded --> [*]
     Resolved --> [*]
 ```
 
 For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Documentation](docs/escrow_flow.md).
+
+For instructions on how to deploy the frontend to Vercel, see the [Vercel Deployment Guide](docs/DEPLOYMENT_VERCEL.md).
 
 ## Screenshots
 
@@ -63,8 +70,8 @@ For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Doc
 
 ### Prerequisites
 
-- **Node.js**: 18.x or higher
-- **pnpm**: Fast, disk efficient package manager
+- **Node.js**: 20.x or higher (recommended)
+- **pnpm**: v10+ (used in CI)
 - **Scarb**: The Cairo package manager
 - **Rust & Cargo**: Required for certain Scarb plugins and Starknet Foundry
 - **Starknet Foundry (snforge)**: For testing and contract management
@@ -74,8 +81,8 @@ For a detailed explanation of roles, actions, and fees, see the [Escrow Flow Doc
 
 ```bash
 # Clone the repository
-git clone https://github.com/mariano-aguero/starkescrow.git
-cd starkescrow
+git clone https://github.com/mariano-aguero/p2p-escrow-on-starknet.git
+cd p2p-escrow-on-starknet
 
 # Install dependencies
 pnpm install
@@ -133,10 +140,17 @@ pnpm contracts:test
 
 This project uses GitHub Actions for Continuous Integration. The workflow includes:
 
-- **Contracts CI**: Compiles Cairo contracts with Scarb and runs tests with Starknet Foundry.
+- **Contracts CI**: Compiles Cairo contracts with Scarb, checks formatting, and runs tests with Starknet Foundry.
 - **Frontend CI**: Checks code formatting with Prettier and ensures the Next.js application builds correctly.
 
 The CI workflow is triggered on every push and pull request to the `main` branch.
+
+### SEO & Discoverability
+
+- **Metatags**: Comprehensive SEO configuration in `layout.tsx`.
+- **Social Sharing**: Open Graph (OG) images and Twitter Cards enabled.
+- **Sitemap**: Dynamic sitemap generation at `/sitemap.xml`.
+- **Indexing**: `robots.txt` configured for search engine crawlers.
 
 ### Troubleshooting
 

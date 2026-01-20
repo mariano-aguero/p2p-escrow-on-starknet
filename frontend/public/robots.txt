@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://p2p-escrow-on-starknet.vercel.app/sitemap.xml

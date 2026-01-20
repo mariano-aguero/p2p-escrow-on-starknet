@@ -61,7 +61,7 @@ export default function DashboardPage() {
           </Button>
           <Button variant="outline" size="lg" className="h-12 px-8" asChild>
             <Link
-              href="https://github.com/yourusername/starkescrow"
+              href="https://github.com/mariano-aguero/starkescrow"
               target="_blank"
             >
               How it works
