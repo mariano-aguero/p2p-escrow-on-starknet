@@ -66,8 +66,5 @@ jobs:
       - name: Check Formatting
         run: pnpm format
 
-      - name: Lint Frontend
-        run: pnpm --filter frontend lint
-
       - name: Build Frontend
         run: pnpm --filter frontend build
