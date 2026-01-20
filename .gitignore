@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+.pnpm-debug.log*
+
+# Next.js
+.next/
+out/
+
+# Cairo / Scarb
+target/
+Scarb.lock
+.snfoundry_cache/
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Project Specific
+.junie/
+templates/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+.junie/
+templates/
+EOF
+
+pnpm-workspace.yaml

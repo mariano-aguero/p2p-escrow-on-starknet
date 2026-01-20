@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 10, 10, 10;
+  --background-end-rgb: 0, 0, 0;
+
+  /* Status Colors */
+  --status-funded: #3b82f6; /* Blue */
+  --status-completed: #22c55e; /* Green */
+  --status-refunded: #f97316; /* Orange */
+  --status-disputed: #ef4444; /* Red */
+  --status-resolved: #8b5cf6; /* Purple */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  min-height: 100vh;
+}
+
+@layer components {
+  .badge-funded {
+    @apply bg-blue-500/20 text-blue-400 border border-blue-500/50;
+  }
+  .badge-completed {
+    @apply bg-green-500/20 text-green-400 border border-green-500/50;
+  }
+  .badge-refunded {
+    @apply bg-orange-500/20 text-orange-400 border border-orange-500/50;
+  }
+  .badge-disputed {
+    @apply bg-red-500/20 text-red-400 border border-red-500/50;
+  }
+  .badge-resolved {
+    @apply bg-purple-500/20 text-purple-400 border border-purple-500/50;
+  }
+}

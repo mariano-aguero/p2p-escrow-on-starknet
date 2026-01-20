@@ -1,0 +1,17 @@
+{
+  "name": "starkescrow",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter frontend dev",
+    "build": "pnpm --filter frontend build",
+    "contracts:build": "cd contracts && scarb build",
+    "contracts:test": "cd contracts && snforge test",
+    "contracts:deploy": "./contracts/scripts/deploy.sh",
+    "contracts:verify": "./contracts/scripts/verify.sh",
+    "format": "prettier --write .",
+    "lint": "pnpm --filter frontend lint"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  }
+}
