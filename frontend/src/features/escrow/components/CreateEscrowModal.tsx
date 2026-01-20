@@ -280,11 +280,11 @@ export function CreateEscrowModal() {
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogTrigger asChild>
-        <Button className="bg-cyan-600 hover:bg-cyan-700 text-white">
+        <Button className="bg-cyan-600 text-white hover:bg-cyan-700">
           <Plus className="mr-2 h-4 w-4" /> Create Escrow
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] w-[95vw] bg-slate-900 border-slate-800 text-slate-100 flex flex-col min-h-[580px]">
+      <DialogContent className="flex min-h-[580px] w-[95vw] flex-col border-slate-800 bg-slate-900 text-slate-100 sm:max-w-[425px]">
         <DialogHeader className="flex-none">
           <DialogTitle>New Escrow</DialogTitle>
           <DialogDescription className="text-slate-400">
@@ -296,15 +296,15 @@ export function CreateEscrowModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex flex-1 flex-col justify-center">
           {/* Transaction Status Display */}
           {txStatus === "pending" && (
-            <div className="flex flex-col items-center justify-center py-4 space-y-6">
+            <div className="flex flex-col items-center justify-center space-y-6 py-4">
               <TransactionStepper
                 status={txStepperStatus}
                 startTime={txStartTime}
               />
-              <div className="text-center space-y-2">
+              <div className="space-y-2 text-center">
                 <p className="text-sm font-medium">
                   Processing your transaction
                 </p>
@@ -316,7 +316,7 @@ export function CreateEscrowModal() {
                     href={getExplorerUrl(txHash)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-cyan-500 hover:text-cyan-400 mt-2"
+                    className="mt-2 inline-flex items-center gap-1 text-xs text-cyan-500 hover:text-cyan-400"
                   >
                     View on Explorer <ExternalLink className="h-3 w-3" />
                   </a>
@@ -326,10 +326,10 @@ export function CreateEscrowModal() {
           )}
 
           {txStatus === "success" && (
-            <div className="flex flex-col items-center justify-center py-4 space-y-6">
+            <div className="flex flex-col items-center justify-center space-y-6 py-4">
               <div className="flex flex-col items-center space-y-4">
                 <CheckCircle2 className="h-12 w-12 text-green-500" />
-                <div className="text-center space-y-2">
+                <div className="space-y-2 text-center">
                   <p className="text-sm font-medium">
                     Escrow created successfully!
                   </p>
@@ -364,7 +364,7 @@ export function CreateEscrowModal() {
                 />
               )}
 
-              <div className="flex gap-2 w-full pt-4">
+              <div className="flex w-full gap-2 pt-4">
                 <Button
                   onClick={handleNewTransaction}
                   variant="outline"
@@ -374,7 +374,7 @@ export function CreateEscrowModal() {
                 </Button>
                 <Button
                   onClick={() => handleClose(false, true)}
-                  className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white"
+                  className="flex-1 bg-cyan-600 text-white hover:bg-cyan-700"
                 >
                   Close
                 </Button>
@@ -383,12 +383,12 @@ export function CreateEscrowModal() {
           )}
 
           {txStatus === "error" && (
-            <div className="flex flex-col items-center justify-center py-4 space-y-6">
+            <div className="flex flex-col items-center justify-center space-y-6 py-4">
               <div className="flex flex-col items-center space-y-4">
                 <XCircle className="h-12 w-12 text-red-500" />
-                <div className="text-center space-y-2">
+                <div className="space-y-2 text-center">
                   <p className="text-sm font-medium">Transaction failed</p>
-                  <p className="text-xs text-slate-400 max-w-[280px] mx-auto">
+                  <p className="mx-auto max-w-[280px] text-xs text-slate-400">
                     {txError ||
                       "An error occurred while processing your transaction"}
                   </p>
@@ -406,7 +406,7 @@ export function CreateEscrowModal() {
               </div>
               <Button
                 onClick={handleNewTransaction}
-                className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                className="w-full bg-cyan-600 text-white hover:bg-cyan-700"
               >
                 Try Again
               </Button>
@@ -417,14 +417,14 @@ export function CreateEscrowModal() {
           {txStatus === "idle" && (
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="space-y-4 py-4 flex flex-col flex-1"
+              className="flex flex-1 flex-col space-y-4 py-4"
             >
               <div className="flex-1 space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="buyer">Buyer Address (You)</Label>
-                  <div className="flex items-center gap-2 px-3 py-2 bg-slate-950 border border-slate-800 rounded-md text-slate-400">
+                  <div className="flex items-center gap-2 rounded-md border border-slate-800 bg-slate-950 px-3 py-2 text-slate-400">
                     <Wallet className="h-4 w-4" />
-                    <span className="text-sm font-mono">
+                    <span className="font-mono text-sm">
                       {address ? truncateAddress(address) : "Not connected"}
                     </span>
                   </div>
@@ -434,7 +434,7 @@ export function CreateEscrowModal() {
                   <Input
                     id="seller"
                     placeholder="0x..."
-                    className="bg-slate-950 border-slate-800"
+                    className="border-slate-800 bg-slate-950"
                     {...register("seller")}
                   />
                   {errors.seller && (
@@ -448,7 +448,7 @@ export function CreateEscrowModal() {
                   <Input
                     id="arbiter"
                     placeholder="0x..."
-                    className="bg-slate-950 border-slate-800"
+                    className="border-slate-800 bg-slate-950"
                     {...register("arbiter")}
                   />
                   {errors.arbiter && (
@@ -460,7 +460,7 @@ export function CreateEscrowModal() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <Label htmlFor="amount">Amount (STARK)</Label>
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="text-muted-foreground flex items-center gap-1 text-xs">
                       <Wallet className="h-3 w-3" />
                       {isLoadingBalance ? (
                         <span>Loading...</span>
@@ -473,7 +473,7 @@ export function CreateEscrowModal() {
                     id="amount"
                     type="text"
                     placeholder="0.01"
-                    className="bg-slate-950 border-slate-800"
+                    className="border-slate-800 bg-slate-950"
                     {...register("amount")}
                   />
                   <div className="flex gap-2">
@@ -481,7 +481,7 @@ export function CreateEscrowModal() {
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="flex-1 h-8 text-xs"
+                      className="h-8 flex-1 text-xs"
                       onClick={() => setPercentage(25)}
                       disabled={isLoadingBalance || balance === BigInt(0)}
                     >
@@ -491,7 +491,7 @@ export function CreateEscrowModal() {
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="flex-1 h-8 text-xs"
+                      className="h-8 flex-1 text-xs"
                       onClick={() => setPercentage(50)}
                       disabled={isLoadingBalance || balance === BigInt(0)}
                     >
@@ -501,7 +501,7 @@ export function CreateEscrowModal() {
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="flex-1 h-8 text-xs"
+                      className="h-8 flex-1 text-xs"
                       onClick={() => setPercentage(75)}
                       disabled={isLoadingBalance || balance === BigInt(0)}
                     >
@@ -511,7 +511,7 @@ export function CreateEscrowModal() {
                       type="button"
                       variant="outline"
                       size="sm"
-                      className="flex-1 h-8 text-xs"
+                      className="h-8 flex-1 text-xs"
                       onClick={() => setPercentage(100)}
                       disabled={isLoadingBalance || balance === BigInt(0)}
                     >
@@ -529,7 +529,7 @@ export function CreateEscrowModal() {
                   <Input
                     id="description"
                     placeholder="e.g. Domain purchase"
-                    className="bg-slate-950 border-slate-800"
+                    className="border-slate-800 bg-slate-950"
                     {...register("description")}
                   />
                   {errors.description && (
@@ -540,22 +540,22 @@ export function CreateEscrowModal() {
                 </div>
 
                 {/* Estimated Fees Display - Always visible */}
-                <div className="rounded-lg bg-slate-950 border border-slate-800 p-3 space-y-1">
+                <div className="space-y-1 rounded-lg border border-slate-800 bg-slate-950 p-3">
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-slate-400">
                       Estimated Transaction Fee:
                     </span>
                     <span className="font-medium text-slate-100">
                       {!estimateCalls ? (
-                        <span className="text-slate-500 text-xs">
+                        <span className="text-xs text-slate-500">
                           Complete form to estimate
                         </span>
                       ) : isEstimatingFees ? (
-                        <Loader2 className="h-4 w-4 animate-spin inline" />
+                        <Loader2 className="inline h-4 w-4 animate-spin" />
                       ) : feeEstimate ? (
                         formatStark(feeEstimate.overall_fee)
                       ) : (
-                        <span className="text-slate-500 text-xs">
+                        <span className="text-xs text-slate-500">
                           Estimating...
                         </span>
                       )}
@@ -573,7 +573,7 @@ export function CreateEscrowModal() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-cyan-600 hover:bg-cyan-700 text-white"
+                  className="w-full bg-cyan-600 text-white hover:bg-cyan-700"
                 >
                   {isLoading ? (
                     <>

@@ -59,17 +59,17 @@ export function EscrowList() {
   return (
     <div className="w-full">
       {showAddress && (
-        <div className="mb-6 flex items-center gap-2 px-4 py-3 bg-slate-900 border border-slate-800 rounded-lg">
+        <div className="mb-6 flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900 px-4 py-3">
           <Wallet className="h-4 w-4 text-cyan-400" />
           <span className="text-sm text-slate-400">Connected:</span>
-          <span className="text-sm font-mono text-slate-100">
+          <span className="font-mono text-sm text-slate-100">
             {truncateAddress(address)}
           </span>
         </div>
       )}
 
       <Tabs defaultValue="as-buyer" className="w-full">
-        <TabsList className="bg-slate-900 border border-slate-800 p-1 mb-6">
+        <TabsList className="mb-6 border border-slate-800 bg-slate-900 p-1">
           <TabsTrigger
             value="as-buyer"
             className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white"
@@ -127,8 +127,8 @@ export function EscrowList() {
 
 function EmptyState() {
   return (
-    <div className="col-span-full flex flex-col items-center justify-center py-20 bg-slate-900/50 border border-dashed border-slate-800 rounded-xl">
-      <SearchX className="h-12 w-12 text-slate-600 mb-4" />
+    <div className="col-span-full flex flex-col items-center justify-center rounded-xl border border-dashed border-slate-800 bg-slate-900/50 py-20">
+      <SearchX className="mb-4 h-12 w-12 text-slate-600" />
       <h3 className="text-lg font-semibold text-slate-300">No escrows found</h3>
       <p className="text-sm text-slate-500">
         Start by creating a new escrow agreement.
@@ -148,7 +148,7 @@ function EscrowGrid({
 }) {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {[1, 2, 3].map((i) => (
           <EscrowCardSkeleton key={i} />
         ))}
@@ -161,7 +161,7 @@ function EscrowGrid({
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {ids.map((id) => (
         <EscrowItem key={id.toString()} id={Number(id)} onClick={onItemClick} />
       ))}

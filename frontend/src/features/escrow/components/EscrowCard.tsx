@@ -28,7 +28,7 @@ export function EscrowCard({ escrow, onClick }: EscrowCardProps) {
 
   return (
     <Card
-      className="cursor-pointer transition-all hover:border-cyan-500/50 bg-slate-900 border-slate-800 text-slate-100"
+      className="cursor-pointer border-slate-800 bg-slate-900 text-slate-100 transition-all hover:border-cyan-500/50"
       onClick={onClick}
     >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -37,7 +37,7 @@ export function EscrowCard({ escrow, onClick }: EscrowCardProps) {
         </CardTitle>
         <span
           className={cn(
-            "px-2 py-1 rounded-full text-[10px] font-semibold uppercase tracking-wider",
+            "rounded-full px-2 py-1 text-[10px] font-semibold uppercase tracking-wider",
             STATUS_CLASSES[escrow.status]
           )}
         >
@@ -48,18 +48,18 @@ export function EscrowCard({ escrow, onClick }: EscrowCardProps) {
         <div className="text-2xl font-bold text-cyan-500">
           {formatEth(escrow.amount)}
         </div>
-        <p className="text-sm text-slate-400 mt-1 line-clamp-1 italic">
+        <p className="mt-1 line-clamp-1 text-sm italic text-slate-400">
           &quot;{escrow.description}&quot;
         </p>
         <div className="mt-4 space-y-2">
           <div className="flex items-center text-xs text-slate-400">
             <User className="mr-2 h-3 w-3" />
-            <span className="font-semibold mr-1">Buyer:</span>
+            <span className="mr-1 font-semibold">Buyer:</span>
             {truncateAddress(escrow.buyer)}
           </div>
           <div className="flex items-center text-xs text-slate-400">
             <UserCheck className="mr-2 h-3 w-3" />
-            <span className="font-semibold mr-1">Seller:</span>
+            <span className="mr-1 font-semibold">Seller:</span>
             {truncateAddress(escrow.seller)}
           </div>
         </div>
@@ -76,14 +76,14 @@ export function EscrowCard({ escrow, onClick }: EscrowCardProps) {
 
 export function EscrowCardSkeleton() {
   return (
-    <Card className="bg-slate-900 border-slate-800">
+    <Card className="border-slate-800 bg-slate-900">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <Skeleton className="h-4 w-20" />
         <Skeleton className="h-4 w-16 rounded-full" />
       </CardHeader>
       <CardContent>
-        <Skeleton className="h-8 w-32 mb-2" />
-        <Skeleton className="h-4 w-full mb-4" />
+        <Skeleton className="mb-2 h-8 w-32" />
+        <Skeleton className="mb-4 h-4 w-full" />
         <div className="space-y-2">
           <Skeleton className="h-3 w-24" />
           <Skeleton className="h-3 w-24" />

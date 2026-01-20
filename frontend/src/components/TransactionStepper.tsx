@@ -68,17 +68,17 @@ export function TransactionStepper({
   return (
     <div className="w-full py-6">
       {/* Progress Bar Container */}
-      <div className="relative h-12 mb-16">
+      <div className="relative mb-16 h-12">
         {/* Background Line */}
-        <div className="absolute top-1/2 left-0 right-0 h-1 bg-slate-800 -translate-y-1/2" />
+        <div className="absolute left-0 right-0 top-1/2 h-1 -translate-y-1/2 bg-slate-800" />
 
         {/* Animated Progress Line */}
         <div
-          className="absolute top-1/2 left-0 h-1 bg-gradient-to-r from-cyan-500 to-cyan-400 -translate-y-1/2 transition-all duration-500 ease-in-out"
+          className="absolute left-0 top-1/2 h-1 -translate-y-1/2 bg-gradient-to-r from-cyan-500 to-cyan-400 transition-all duration-500 ease-in-out"
           style={{ width: `${progressPercentage}%` }}
         >
           {/* Animated gradient effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+          <div className="animate-shimmer absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
         </div>
 
         {/* Steps */}
@@ -92,22 +92,19 @@ export function TransactionStepper({
               <div key={step.id} className="flex flex-col items-center">
                 {/* Step Circle */}
                 <div
-                  className={`
-                    relative z-10 flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all duration-300
-                    ${
-                      isCompleted
-                        ? "bg-cyan-500 border-cyan-500"
-                        : isActive
-                          ? "bg-cyan-600 border-cyan-600 animate-pulse"
-                          : "bg-slate-800 border-slate-700"
-                    }
-                  `}
+                  className={`relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                    isCompleted
+                      ? "border-cyan-500 bg-cyan-500"
+                      : isActive
+                        ? "animate-pulse border-cyan-600 bg-cyan-600"
+                        : "border-slate-700 bg-slate-800"
+                  } `}
                 >
                   {isCompleted ? (
-                    <CheckCircle2 className="w-5 h-5 text-white" />
+                    <CheckCircle2 className="h-5 w-5 text-white" />
                   ) : (
                     <StepIcon
-                      className={`w-5 h-5 ${
+                      className={`h-5 w-5 ${
                         isActive ? "text-white" : "text-slate-500"
                       }`}
                     />
@@ -128,7 +125,7 @@ export function TransactionStepper({
 
                   {/* Show timer on active step */}
                   {isActive && startTime && (
-                    <p className="text-xs text-cyan-400 font-mono mt-1">
+                    <p className="mt-1 font-mono text-xs text-cyan-400">
                       {formatTime(elapsedTime)}
                     </p>
                   )}
@@ -140,13 +137,13 @@ export function TransactionStepper({
       </div>
 
       {/* Status Badge */}
-      <div className="flex items-center justify-center gap-2 mt-8">
-        <div className="inline-flex items-center px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+      <div className="mt-8 flex items-center justify-center gap-2">
+        <div className="inline-flex items-center rounded-full border border-cyan-500/20 bg-cyan-500/10 px-3 py-1.5">
           <div className="relative mr-2">
-            <div className="w-2 h-2 bg-cyan-400 rounded-full" />
-            <div className="absolute inset-0 w-2 h-2 bg-cyan-400 rounded-full animate-ping" />
+            <div className="h-2 w-2 rounded-full bg-cyan-400" />
+            <div className="absolute inset-0 h-2 w-2 animate-ping rounded-full bg-cyan-400" />
           </div>
-          <span className="text-xs font-semibold text-cyan-400 uppercase tracking-wide">
+          <span className="text-xs font-semibold uppercase tracking-wide text-cyan-400">
             Processing
           </span>
         </div>

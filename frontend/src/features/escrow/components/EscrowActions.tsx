@@ -154,7 +154,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
 
   if (!address) {
     return (
-      <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-400 italic">
+      <div className="rounded-lg border border-slate-800 bg-slate-950 p-3 text-sm italic text-slate-400">
         Connect your wallet to perform actions on this escrow.
       </div>
     )
@@ -162,7 +162,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
 
   if (!isBuyer && !isSeller && !isArbiter) {
     return (
-      <div className="p-3 bg-slate-950 border border-slate-800 rounded-lg text-sm text-slate-400 italic">
+      <div className="rounded-lg border border-slate-800 bg-slate-950 p-3 text-sm italic text-slate-400">
         You are not a participant in this escrow. Only the buyer, seller, or
         arbiter can perform actions.
       </div>
@@ -222,7 +222,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
       {txStatus === "idle" && (
         <div className="flex flex-wrap gap-2">
           {!hasAvailableActions && (
-            <p className="text-sm text-slate-500 italic py-1">
+            <p className="py-1 text-sm italic text-slate-500">
               No actions currently available for this escrow status.
             </p>
           )}
@@ -245,7 +245,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 className="bg-green-600 hover:bg-green-700"
               >
                 {isLoading && pendingAction === "release" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <Check className="mr-2 h-4 w-4" />
                 )}
@@ -264,10 +264,10 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                   isLoading ||
                   (pendingAction !== null && pendingAction !== "dispute")
                 }
-                className="bg-red-600 hover:bg-red-700 text-white"
+                className="bg-red-600 text-white hover:bg-red-700"
               >
                 {isLoading && pendingAction === "dispute" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <AlertCircle className="mr-2 h-4 w-4" />
                 )}
@@ -296,7 +296,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 className="border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white"
               >
                 {isLoading && pendingAction === "refund" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <XCircle className="mr-2 h-4 w-4" />
                 )}
@@ -315,10 +315,10 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                   isLoading ||
                   (pendingAction !== null && pendingAction !== "dispute")
                 }
-                className="bg-red-600 hover:bg-red-700 text-white"
+                className="bg-red-600 text-white hover:bg-red-700"
               >
                 {isLoading && pendingAction === "dispute" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <AlertCircle className="mr-2 h-4 w-4" />
                 )}
@@ -346,7 +346,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 className="bg-purple-600 hover:bg-purple-700"
               >
                 {isLoading && pendingAction === "resolve-seller" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <Scale className="mr-2 h-4 w-4" />
                 )}
@@ -370,7 +370,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 className="bg-slate-700 hover:bg-slate-800"
               >
                 {isLoading && pendingAction === "resolve-buyer" ? (
-                  <Loader2 className="animate-spin h-4 w-4 mr-2" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
                   <Scale className="mr-2 h-4 w-4" />
                 )}
@@ -396,16 +396,16 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
 
       {/* Fee Estimation for Pending Action */}
       {txStatus === "idle" && pendingAction && (
-        <div className="rounded-lg bg-slate-950 border border-slate-800 p-3 space-y-1">
+        <div className="space-y-1 rounded-lg border border-slate-800 bg-slate-950 p-3">
           <div className="flex items-center justify-between text-sm">
             <span className="text-slate-400">Estimated Transaction Fee:</span>
             <span className="font-medium text-slate-100">
               {isEstimatingFees ? (
-                <Loader2 className="h-4 w-4 animate-spin inline" />
+                <Loader2 className="inline h-4 w-4 animate-spin" />
               ) : feeEstimate ? (
                 formatStark(feeEstimate.overall_fee)
               ) : (
-                <span className="text-slate-500 text-xs">Estimating...</span>
+                <span className="text-xs text-slate-500">Estimating...</span>
               )}
             </span>
           </div>
@@ -417,19 +417,19 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
 
       {/* Transaction Status Display */}
       {txStatus === "pending" && (
-        <div className="flex flex-col items-center justify-center py-4 space-y-4 bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+        <div className="flex flex-col items-center justify-center space-y-4 rounded-xl border border-slate-800 bg-slate-900/50 p-6 py-4">
           <TransactionStepper
             status={txStepperStatus}
             startTime={txStartTime}
           />
-          <div className="text-center space-y-2">
+          <div className="space-y-2 text-center">
             <p className="text-sm font-medium">Processing action</p>
             {txHash && (
               <a
                 href={getExplorerUrl(txHash)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs text-cyan-500 hover:text-cyan-400 mt-2"
+                className="mt-2 inline-flex items-center gap-1 text-xs text-cyan-500 hover:text-cyan-400"
               >
                 View on Explorer <ExternalLink className="h-3 w-3" />
               </a>
@@ -439,9 +439,9 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
       )}
 
       {txStatus === "success" && (
-        <div className="flex flex-col items-center justify-center py-4 space-y-4 bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+        <div className="flex flex-col items-center justify-center space-y-4 rounded-xl border border-slate-800 bg-slate-900/50 p-6 py-4">
           <Check className="h-10 w-10 text-green-500" />
-          <div className="text-center space-y-1">
+          <div className="space-y-1 text-center">
             <p className="text-sm font-medium">
               Action completed successfully!
             </p>
@@ -467,7 +467,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 (receipt as any).execution_resources ||
                 (receipt as any).value?.execution_resources
               }
-              className="w-full mt-2"
+              className="mt-2 w-full"
             />
           )}
           <Button
@@ -489,9 +489,9 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
       )}
 
       {txStatus === "error" && (
-        <div className="flex flex-col items-center justify-center py-4 space-y-4 bg-slate-900/50 rounded-xl border border-slate-800 p-6">
+        <div className="flex flex-col items-center justify-center space-y-4 rounded-xl border border-slate-800 bg-slate-900/50 p-6 py-4">
           <AlertCircle className="h-10 w-10 text-red-500" />
-          <div className="text-center space-y-1">
+          <div className="space-y-1 text-center">
             <p className="text-sm font-medium">Action failed</p>
             <p className="text-xs text-slate-400">{txError}</p>
           </div>
@@ -503,7 +503,7 @@ export function EscrowActions({ escrow, onSuccess }: EscrowActionsProps) {
                 stepperStatus: "submitted",
               })
             }
-            className="bg-cyan-600 hover:bg-cyan-700 mt-2"
+            className="mt-2 bg-cyan-600 hover:bg-cyan-700"
           >
             Try Again
           </Button>

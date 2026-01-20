@@ -39,17 +39,17 @@ export function ConnectWallet() {
   if (status === "connected" && address) {
     return (
       <div className="flex items-center gap-2">
-        <div className="flex flex-col items-end px-3 py-1 bg-slate-800 rounded-md border border-slate-700">
-          <div className="flex items-center gap-1.5 mb-1">
+        <div className="flex flex-col items-end rounded-md border border-slate-700 bg-slate-800 px-3 py-1">
+          <div className="mb-1 flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-cyan-500"></span>
             </span>
-            <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold leading-none">
+            <span className="text-[10px] font-bold uppercase leading-none tracking-wider text-slate-400">
               Connected
             </span>
           </div>
-          <span className="text-sm font-mono text-cyan-400 leading-none">
+          <span className="font-mono text-sm leading-none text-cyan-400">
             {truncateAddress(address)}
           </span>
         </div>
@@ -57,7 +57,7 @@ export function ConnectWallet() {
           variant="ghost"
           size="icon"
           onClick={() => disconnect()}
-          className="text-slate-400 hover:text-red-400 hover:bg-red-400/10"
+          className="text-slate-400 hover:bg-red-400/10 hover:text-red-400"
           title="Disconnect"
         >
           <LogOut className="h-4 w-4" />
@@ -72,14 +72,14 @@ export function ConnectWallet() {
         <Button className="gap-2">
           <div className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-500"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-slate-500"></span>
             </span>
             <Wallet className="h-4 w-4" />
           </div>
           <span>Connect Wallet</span>
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-slate-900 border-slate-800 text-slate-100">
+      <DialogContent className="border-slate-800 bg-slate-900 text-slate-100 sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Connect your wallet</DialogTitle>
         </DialogHeader>
@@ -93,7 +93,7 @@ export function ConnectWallet() {
                   setIsOpen(false)
                 }}
                 variant="outline"
-                className="flex justify-between items-center h-14 px-4 bg-slate-950 border-slate-800 hover:bg-slate-800 text-white"
+                className="flex h-14 items-center justify-between border-slate-800 bg-slate-950 px-4 text-white hover:bg-slate-800"
                 disabled={!connector.available()}
               >
                 <div className="flex items-center gap-3">
@@ -102,22 +102,22 @@ export function ConnectWallet() {
                     <img
                       src={connector.icon}
                       alt={connector.name}
-                      className="w-6 h-6"
+                      className="h-6 w-6"
                     />
                   ) : (
-                    <Wallet className="w-6 h-6" />
+                    <Wallet className="h-6 w-6" />
                   )}
                   <span className="font-semibold">{connector.name}</span>
                 </div>
                 {!connector.available() && (
-                  <span className="text-xs text-muted-foreground">
+                  <span className="text-muted-foreground text-xs">
                     Not available
                   </span>
                 )}
               </Button>
             ))
           ) : (
-            <div className="text-center py-4 text-slate-400">
+            <div className="py-4 text-center text-slate-400">
               No wallet connectors found.
             </div>
           )}

@@ -184,7 +184,7 @@ export function GasBreakdown({
 
   return (
     <div
-      className={`rounded-lg bg-slate-950 border border-slate-800 p-4 space-y-4 ${className}`}
+      className={`space-y-4 rounded-lg border border-slate-800 bg-slate-950 p-4 ${className}`}
     >
       <div className="flex items-center gap-2 text-slate-100">
         <Fuel className="h-5 w-5 text-cyan-400" />
@@ -210,13 +210,13 @@ export function GasBreakdown({
           <h4 className="text-sm font-medium text-slate-300">
             Execution Resources
           </h4>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             {resources.map((resource) => {
               const Icon = resource.icon
               return (
                 <div
                   key={resource.label}
-                  className="flex items-center justify-between bg-slate-900 rounded-md p-2"
+                  className="flex items-center justify-between rounded-md bg-slate-900 p-2"
                 >
                   <div className="flex items-center gap-2">
                     <Icon className={`h-4 w-4 ${resource.color}`} />
@@ -265,7 +265,7 @@ export function GasBreakdown({
       )}
 
       {resources.length === 0 && !l1DataAvailability && actualFee && (
-        <p className="text-xs text-slate-500 italic">
+        <p className="text-xs italic text-slate-500">
           Detailed execution resources not available for this transaction.
         </p>
       )}

@@ -38,7 +38,7 @@ export function EscrowDetail({
   if (isLoading && !escrow) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="sm:max-w-[500px] w-[95vw] bg-slate-900 border-slate-800 text-slate-100 flex items-center justify-center p-12">
+        <DialogContent className="flex w-[95vw] items-center justify-center border-slate-800 bg-slate-900 p-12 text-slate-100 sm:max-w-[500px]">
           <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
         </DialogContent>
       </Dialog>
@@ -56,13 +56,13 @@ export function EscrowDetail({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px] w-[95vw] bg-slate-900 border-slate-800 text-slate-100 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-h-[90vh] w-[95vw] overflow-y-auto border-slate-800 bg-slate-900 text-slate-100 sm:max-w-[500px]">
         <DialogHeader>
           <div className="flex items-center justify-between gap-4">
             <DialogTitle className="text-xl">Escrow Details</DialogTitle>
             <span
               className={cn(
-                "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider",
+                "rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider",
                 STATUS_CLASSES[escrow.status]
               )}
             >
@@ -72,8 +72,8 @@ export function EscrowDetail({
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          <div className="bg-slate-950 p-4 rounded-lg border border-slate-800">
-            <div className="text-sm text-slate-400 mb-1">Amount</div>
+          <div className="rounded-lg border border-slate-800 bg-slate-950 p-4">
+            <div className="mb-1 text-sm text-slate-400">Amount</div>
             <div className="text-3xl font-bold text-cyan-500">
               {formatEth(escrow.amount)}
             </div>
@@ -81,12 +81,12 @@ export function EscrowDetail({
 
           <div className="space-y-4">
             <div className="flex items-start gap-3">
-              <Info className="h-5 w-5 text-slate-400 mt-0.5" />
-              <div className="flex-1 min-w-0">
-                <div className="text-xs text-slate-500 uppercase font-semibold">
+              <Info className="mt-0.5 h-5 w-5 text-slate-400" />
+              <div className="min-w-0 flex-1">
+                <div className="text-xs font-semibold uppercase text-slate-500">
                   Description
                 </div>
-                <div className="text-sm text-slate-300 break-words">
+                <div className="break-words text-sm text-slate-300">
                   {escrow.description}
                 </div>
               </div>
@@ -111,7 +111,7 @@ export function EscrowDetail({
             <div className="flex items-center gap-3">
               <Calendar className="h-5 w-5 text-slate-400" />
               <div>
-                <div className="text-xs text-slate-500 uppercase font-semibold">
+                <div className="text-xs font-semibold uppercase text-slate-500">
                   Created At
                 </div>
                 <div className="text-sm text-slate-300">{date}</div>
@@ -119,8 +119,8 @@ export function EscrowDetail({
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-800">
-            <div className="text-xs text-slate-500 uppercase font-semibold mb-3">
+          <div className="border-t border-slate-800 pt-4">
+            <div className="mb-3 text-xs font-semibold uppercase text-slate-500">
               Available Actions
             </div>
             <EscrowActions
@@ -148,20 +148,20 @@ function AddressField({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="h-5 w-5 flex items-center justify-center text-slate-400">
+      <div className="flex h-5 w-5 items-center justify-center text-slate-400">
         <ExternalLink className="h-4 w-4" />
       </div>
       <div className="flex-1">
-        <div className="text-xs text-slate-500 uppercase font-semibold">
+        <div className="text-xs font-semibold uppercase text-slate-500">
           {label}
         </div>
         <div className="flex items-center justify-between gap-2">
-          <div className="text-sm text-slate-300 font-mono">
+          <div className="font-mono text-sm text-slate-300">
             {truncateAddress(address)}
           </div>
           <button
             onClick={() => onCopy(address)}
-            className="text-slate-500 hover:text-cyan-500 transition-colors"
+            className="text-slate-500 transition-colors hover:text-cyan-500"
           >
             <Copy className="h-3.5 w-3.5" />
           </button>

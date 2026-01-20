@@ -18,9 +18,9 @@ export function Header() {
   const isWrongNetwork = status === "connected" && chain?.id !== sepolia.id
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       {isWrongNetwork && (
-        <div className="bg-destructive text-destructive-foreground px-4 py-2 text-center text-sm font-medium flex items-center justify-center gap-2">
+        <div className="bg-destructive text-destructive-foreground flex items-center justify-center gap-2 px-4 py-2 text-center text-sm font-medium">
           <AlertTriangle className="h-4 w-4" />
           <span>
             Wrong Network: StarkEscrow only works on{" "}
@@ -36,16 +36,16 @@ export function Header() {
               StarkEscrow
             </span>
           </Link>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden gap-6 md:flex">
             <Link
               href="/"
-              className="text-sm font-medium transition-colors hover:text-primary"
+              className="hover:text-primary text-sm font-medium transition-colors"
             >
               Dashboard
             </Link>
             <Link
               href="/create"
-              className="flex items-center gap-1 text-sm font-medium transition-colors hover:text-primary"
+              className="hover:text-primary flex items-center gap-1 text-sm font-medium transition-colors"
             >
               <PlusCircle className="h-4 w-4" />
               Create Escrow
@@ -54,7 +54,7 @@ export function Header() {
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center">
+          <div className="hidden items-center sm:flex">
             <div
               className={cn(
                 "flex items-center rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset",
@@ -81,17 +81,17 @@ export function Header() {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden border-b bg-background p-4 flex flex-col gap-4">
+        <div className="bg-background flex flex-col gap-4 border-b p-4 md:hidden">
           <Link
             href="/"
-            className="text-sm font-medium py-2 border-b"
+            className="border-b py-2 text-sm font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Dashboard
           </Link>
           <Link
             href="/create"
-            className="text-sm font-medium py-2 border-b"
+            className="border-b py-2 text-sm font-medium"
             onClick={() => setIsMenuOpen(false)}
           >
             Create Escrow

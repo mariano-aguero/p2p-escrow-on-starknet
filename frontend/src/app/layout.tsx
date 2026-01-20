@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <StarknetProvider>
-          <div className="flex min-h-screen flex-col text-foreground bg-background">
+          <div className="text-foreground bg-background flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />

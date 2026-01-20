@@ -15,7 +15,7 @@ export default function EscrowPage() {
   const id = Number(params.id)
 
   return (
-    <div className="container py-8 space-y-6 px-4 md:px-8">
+    <div className="container space-y-6 px-4 py-8 md:px-8">
       <div className="flex items-center gap-4">
         <Button asChild variant="ghost" size="sm">
           <Link href="/">
@@ -26,7 +26,7 @@ export default function EscrowPage() {
         <h1 className="text-2xl font-bold tracking-tight">Escrow #{id}</h1>
       </div>
 
-      <div className="max-w-4xl mx-auto">
+      <div className="mx-auto max-w-4xl">
         <Suspense fallback={<EscrowDetailSkeleton />}>
           <EscrowContent id={id} />
         </Suspense>
@@ -44,11 +44,11 @@ function EscrowContent({ id }: { id: number }) {
 
   if (error || !escrow) {
     return (
-      <div className="container py-12 flex flex-col items-center justify-center min-h-[40vh] text-center">
-        <div className="p-4 bg-destructive/10 rounded-full mb-6">
-          <AlertTriangle className="h-12 w-12 text-destructive" />
+      <div className="container flex min-h-[40vh] flex-col items-center justify-center py-12 text-center">
+        <div className="bg-destructive/10 mb-6 rounded-full p-4">
+          <AlertTriangle className="text-destructive h-12 w-12" />
         </div>
-        <h1 className="text-2xl font-bold mb-2">Escrow Not Found</h1>
+        <h1 className="mb-2 text-2xl font-bold">Escrow Not Found</h1>
         <p className="text-muted-foreground mb-8 max-w-md">
           We couldn&apos;t find an escrow with ID #{id}. It might not exist or
           there was an error fetching it.
@@ -74,7 +74,7 @@ function EscrowContent({ id }: { id: number }) {
 
 function EscrowDetailSkeleton() {
   return (
-    <Card className="bg-slate-900 border-slate-800">
+    <Card className="border-slate-800 bg-slate-900">
       <CardHeader>
         <div className="flex items-center justify-between">
           <Skeleton className="h-6 w-32" />
@@ -82,8 +82,8 @@ function EscrowDetailSkeleton() {
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="bg-slate-950 p-6 rounded-lg border border-slate-800">
-          <Skeleton className="h-4 w-16 mb-2" />
+        <div className="rounded-lg border border-slate-800 bg-slate-950 p-6">
+          <Skeleton className="mb-2 h-4 w-16" />
           <Skeleton className="h-10 w-48" />
         </div>
         <div className="space-y-4">
